@@ -1,20 +1,23 @@
 class TaskReflex < StimulusReflex::Reflex
 
-    # def complete
-    #     puts element
-    #     Task.find(element.dataset.id).update(completed_at: Time.current)
-    # end
+    before_reflex :find_task
 
-    # def undo
-    #     Task.find(element.dataset.id).update(completed_at: nil)
-    # end
-    
     def toggle
-        Task.find(element.dataset.id).update(completed_at: element.checked ? Time.current : nil)
+        @task.update(completed_at: element.checked ? Time.current : nil)
     end
 
     def delete
-        Task.find(element.dataset.id).destroy
+       @task.destroy
+    end
+
+    def ordering(position)
+        @task.insert_at(position)
+    end
+
+    private
+
+    def find_task
+        @task = Task.find(element.dataset.id)
     end
 
 end

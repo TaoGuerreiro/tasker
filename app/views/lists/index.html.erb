@@ -4,13 +4,13 @@
             <div class="card">
                 <div class="card-header"><%= list.name %></div>
                 <div class="card-body p-0">
-                    <div class="list-group list-group-flush">
-                        <% list.tasks.incomplete_first.each do |task| %>
+                    <div class="list-group list-group-flush" data-list-target="tasks">
+                        <% list.tasks.each do |task| %>
                             <%= render task %>
                         <% end %>
                     </div>
                     <div class="card-footer">
-                        <%= bootstrap_form_with model: Task.new, url: '', layout: :inline, data: { reflex: "submit->List#create_task", list_id: list.id, list_target: "input"} do |f| %>
+                        <%= bootstrap_form_with model: @new_task, url: '', layout: :inline, data: { reflex: "submit->List#create_task", list_id: list.id, list_target: "input"} do |f| %>
                             <%= f.text_field :name, skip_label: true, wrapper_class: "flex-fill mr-2", class: "w-100", placeholder: "What's need to be done?" %>
                             <%= f.submit "Add task", data: { list_target: "button"} %>
                         <% end %>

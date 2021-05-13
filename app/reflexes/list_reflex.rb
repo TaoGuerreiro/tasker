@@ -1,13 +1,18 @@
 class ListReflex < StimulusReflex::Reflex
   def create_task
-    sleep 3
+    # sleep 1
+    # raise "an error"
     list = List.find(element.dataset.list_id)
 
-    list.tasks.create(task_params)
-end
+    @new_task = list.tasks.create(task_params)
+    @new_task = Task.new if @new_task.persisted?
+
+  end
+
 private
 
-def task_params
-    params.require(:task).permit(:name)
-end
+  def task_params
+      params.require(:task).permit(:name)
+  end
+
 end
