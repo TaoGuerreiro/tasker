@@ -4,7 +4,7 @@ class ListReflex < StimulusReflex::Reflex
     # raise "an error"
     list = List.find(element.dataset.list_id)
 
-    @new_task = list.tasks.create(task_params)
+    @new_task = list.tasks.create(task_params.merge(creator: connection.current_user))
     @new_task = Task.new if @new_task.persisted?
 
   end
