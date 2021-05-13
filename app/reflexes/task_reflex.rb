@@ -16,4 +16,5 @@ class TaskReflex < StimulusReflex::Reflex
     def delete
         Task.find(element.dataset.id).destroy
     end
+
 end

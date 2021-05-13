@@ -1,5 +1,5 @@
 <% @lists.each do |list| %>
-    <div class="row justify-content-center my-3">
+    <div class="row justify-content-center my-3" data-controller="list">
         <div class="col-10 col-lg-6">
             <div class="card">
                 <div class="card-header"><%= list.name %></div>
@@ -9,7 +9,14 @@
                             <%= render task %>
                         <% end %>
                     </div>
-                </div>
+                    <div class="card-footer">
+                        <%= bootstrap_form_with model: Task.new, url: '', layout: :inline, data: { reflex: "submit->List#create_task", list_id: list.id, list_target: "input"} do |f| %>
+                            <%= f.text_field :name, skip_label: true, wrapper_class: "flex-fill mr-2", class: "w-100", placeholder: "What's need to be done?" %>
+                            <%= f.submit "Add task", data: { list_target: "button"} %>
+                        <% end %>
+                                    
+                    </div>
+                </div>          
             </div>
         </div>
     </div>
